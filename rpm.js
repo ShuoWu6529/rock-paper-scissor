@@ -48,11 +48,15 @@ function updateText(outcome, humanChoice, computerChoice){
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
+    let roundCount = 0;
 
     const choices = document.querySelector(".choices");
     choices.addEventListener("click", function listener(event) {
         const target = event.target;
         const humanChoice = target.className;
+
+        if (humanChoice === "choices") return;
+        
         const computerChoice = getComputerChoice()
         let outcome = playRound(humanChoice, computerChoice);
 
@@ -70,7 +74,12 @@ function playGame() {
                 computer.textContent = `Computer score: ${computerScore}`;
         }
 
-        const result = document.querySelector(".result")
+        roundCount++;
+        const round = document.querySelector(".round");
+        round.textContent = `Round ${roundCount}`;
+
+
+        const result = document.querySelector(".result");
         if (humanScore === 5) {
             result.textContent = "You win the game!";
             choices.removeEventListener("click", listener);
