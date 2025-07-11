@@ -50,7 +50,7 @@ function playGame() {
     let computerScore = 0;
 
     const choices = document.querySelector(".choices");
-    choices.addEventListener("click", (event) => {
+    choices.addEventListener("click", function listener(event) {
         const target = event.target;
         const humanChoice = target.className;
         const computerChoice = getComputerChoice()
@@ -63,14 +63,22 @@ function playGame() {
         switch (outcome) {
             case 1:
                 humanScore++;
-                human.textContent = humanScore;
+                human.textContent = `Your score: ${humanScore}`;
                 break;
             case -1:
                 computerScore++;
-                computer.textContent = computerScore;
+                computer.textContent = `Computer score: ${computerScore}`;
         }
 
-        
+        const result = document.querySelector(".result")
+        if (humanScore === 5) {
+            result.textContent = "You win the game!";
+            choices.removeEventListener("click", listener);
+        } else if (computerScore === 5) {
+            result.textContent = "You lost the game!";
+            choices.removeEventListener("click", listener);
+        }
+
     })
 }
 
